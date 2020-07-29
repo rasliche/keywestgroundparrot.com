@@ -6,6 +6,11 @@ layout: layouts/base.njk
 <p>You can take this template and create whatever you want. There are some useful snippets of HTML and great features built right in.
 Modifying it to fit a brochure site is as simple as copying over your assets and copy.</p>
 
+
+{% for x in environment %}
+<p>{{ x }}</p>
+{% endfor %}
+
 <section>
 {% for product in products %}
   <div>
