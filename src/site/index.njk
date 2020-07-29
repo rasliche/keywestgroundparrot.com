@@ -28,7 +28,7 @@ Modifying it to fit a brochure site is as simple as copying over your assets and
 <script type="text/javascript">
   console.log('Are you gonna buy something?')
 
-  var stripe = Stripe(process.env.STRIPE_PUBLISHABLE_KEY);
+  var stripe = Stripe({{ environment.stripePublishableKey }});
 
 
   const buttons = document.querySelectorAll('button')
@@ -47,6 +47,7 @@ Modifying it to fit a brochure site is as simple as copying over your assets and
         },
         body: JSON.stringify(order)
       })
+      .then(response => response.json())
       stripe.redirectToCheckout({
       // Make the id field from the Checkout Session creation API response
       // available to this file, so you can provide it as argument here
