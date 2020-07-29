@@ -23,7 +23,20 @@ exports.handler = async ({ body }) => {
                     }
                 },
                 quantity: validatedQuantity,
-            }],
+                },
+                {
+                    price_data: {
+                        currency: 'usd',
+                        unit_amount: 300,
+                        product_data: {
+                            name: 'Shipping and Handling',
+                            description: 'Flat rate shipping anywhere in the USA!',
+                            images: [],
+                        }
+                    },
+                quantity: 1,
+                },
+            ],
             shipping_address_collection: {
                 allowed_countries: ['US']
             },
