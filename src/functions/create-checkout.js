@@ -34,10 +34,7 @@ exports.handler = async ({ body }) => {
     
         return {
             statusCode: 200,
-            body: JSON.stringify({
-                sku,
-                quantity
-            })
+            body: session.id
         }
     } catch (error) {
         console.log(error)
