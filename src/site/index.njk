@@ -28,7 +28,7 @@ Modifying it to fit a brochure site is as simple as copying over your assets and
 <script type="text/javascript">
   console.log('Are you gonna buy something?')
 
-  var stripe = Stripe({{ environment.stripePublishableKey }});
+  var stripe = Stripe('{{ environment.stripePublishableKey }}');
 
 
   const buttons = document.querySelectorAll('button')
