@@ -47,17 +47,15 @@ Modifying it to fit a brochure site is as simple as copying over your assets and
         },
         body: JSON.stringify(order)
       })
-      .then(response => {
-        stripe.redirectToCheckout({
-        // Make the id field from the Checkout Session creation API response
-        // available to this file, so you can provide it as argument here
-        // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
-        sessionId: response
-        }).then(function (result) {
-          // If `redirectToCheckout` fails due to a browser or network
-          // error, display the localized error message to your customer
-          // using `result.error.message`.
-        })
+      stripe.redirectToCheckout({
+      // Make the id field from the Checkout Session creation API response
+      // available to this file, so you can provide it as argument here
+      // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+      sessionId: response
+      }).then(function (result) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer
+        // using `result.error.message`.
       })
     })
   })
