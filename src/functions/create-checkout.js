@@ -41,13 +41,13 @@ exports.handler = async ({ body }) => {
                 allowed_countries: ['US']
             },
             mode: 'payment',
-            success_url: 'https://ericraslich.com/purchased',
-            cancel_url: 'https://ericraslich.com/',
+            success_url: 'https://keywestgroundparrot.com/purchased',
+            cancel_url: 'https://keywestgroundparrot.com/',
         })
     
         return {
             statusCode: 200,
-            body: session.id
+            body: JSON.stringify(session.id)
         }
     } catch (error) {
         console.log(error)
