@@ -6,11 +6,6 @@ layout: layouts/base.njk
 <p>You can take this template and create whatever you want. There are some useful snippets of HTML and great features built right in.
 Modifying it to fit a brochure site is as simple as copying over your assets and copy.</p>
 
-
-{% for x in environment %}
-<p>{{ x }}</p>
-{% endfor %}
-
 <section>
 {% for product in products %}
   <div>
@@ -29,14 +24,12 @@ Modifying it to fit a brochure site is as simple as copying over your assets and
 {% endfor %}
 </section>
 
-<p>Also includes support for Netlify Functions, because they are awesome for getting work done.</p>
-<ul>
-  <li><a href="/api/hello">/api/hello</a></li>
-  <li><a href="/api/create-checkout">Checkout</a></li>
-</ul>
-
+<script src="https://js.stripe.com/v3/"></script>
 <script type="text/javascript">
   console.log('Are you gonna buy something?')
+
+  var stripe = Stripe(process.env.STRIPE_PUBLISHABLE_KEY);
+
 
   const buttons = document.querySelectorAll('button')
   const clickHandler = buttons.forEach(b => {
@@ -54,8 +47,18 @@ Modifying it to fit a brochure site is as simple as copying over your assets and
         },
         body: JSON.stringify(order)
       })
-      .then(response => response.json())
-      console.log(response)
+      .then(response => {
+        stripe.redirectToCheckout({
+        // Make the id field from the Checkout Session creation API response
+        // available to this file, so you can provide it as argument here
+        // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+        sessionId: response
+        }).then(function (result) {
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, display the localized error message to your customer
+          // using `result.error.message`.
+        })
+      })
     })
   })
 </script>

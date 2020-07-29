@@ -1,27 +1,27 @@
 const stripe = require('stripe')(process.env.STRIPE_API_SECRET);
-const products = require('../site/_data/products')()
+const inventory = require('../site/_data/products')()
 
 exports.handler = async ({ body }) => {
-    console.log(process.env.STRIPE_API_SECRET)
     try {
         const { sku, quantity } = JSON.parse(body)
-        const product = products.find(p => p.sku === sku)
+        const product = inventory.find(p => p.sku === sku)
         const validatedQuantity = quantity > 0 && quantity <= 5 ? quantity : 1
 
         console.log(product)
         
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
-            line_items: [{
-                price_data: {
-                    currency: 'usd',
-                    unit_amount: product.amount,
-                    product_data: {
-                        name: product.name,
-                        description: product.description,
-                        images: [product.image],
-                    }
-                },
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'usd',
+                        unit_amount: product.amount,
+                        product_data: {
+                            name: product.name,
+                            description: product.description,
+                            images: [product.image],
+                        }
+                    },
                 quantity: validatedQuantity,
                 },
                 {
