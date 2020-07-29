@@ -1,5 +1,5 @@
 (function() {
-  console.log('🔥🔥🔥 Static site template 💻 🍰');
+  console.log('🔥🔥🔥 Buy Some Stickers! 💻🍰🐟');
 
     // // ServiceWorker is a progressive technology. Ignore unsupported browswers.
     // if ('serviceWorker' in navigator) {

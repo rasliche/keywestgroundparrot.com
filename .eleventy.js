@@ -17,10 +17,19 @@ module.exports = function(eleventyConfig) {
   // alternate is passed as a parameter.
   // {{ date | friendlyDate('OPTIONAL FORMAT STRING') }}
   // List of supported tokens: https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens  
-  eleventyConfig.addFilter("dateDisplay", (dateObj, format = "LLL d, y") => {
+  eleventyConfig.addFilter('dateDisplay', (dateObj, format = 'LLL d, y') => {
     return DateTime.fromJSDate(dateObj, {
         zone: "utc"
       }).toFormat(format)
+  })
+
+  // Formats a price from cents into dollars and cents
+  // Defaults to USD
+  eleventyConfig.addFilter('priceFormatter', (amount, currency = 'USD') => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency,
+    }).format(amount.toFixed(2) / 100)
   })
 
   // shortcodes

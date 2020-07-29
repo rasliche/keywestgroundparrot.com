@@ -1,24 +1,56 @@
 ---
 layout: layouts/base.njk
 ---
-<h2 class="text-3xl border-b-2">This site is a starting point</h2>
+<h1 class="text-3xl border-b-2">This site is a starting point</h1>
 
 <p>You can take this template and create whatever you want. There are some useful snippets of HTML and great features built right in.
 Modifying it to fit a brochure site is as simple as copying over your assets and copy.</p>
 
-<h2 class="text-3xl">Features</h2>
+<section>
+{% for product in products %}
+  <div>
+    <h2 class="text-lg font-semibold">{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <img src="{{ product.image }}" alt="{{ product.name }}" />
+    <p>{{ product.amount | priceFormatter(product.currency) }}</p>
+    <form action="/api/create-checkout" method="POST">
+      <label for="quantity">How many?
+      <input type="number" min="1" max="5" id="quantity" name="quantity" value="1">
+      <input type="hidden" name="sku" value="{{ product.sku }}">
 
-<div class="features sm:flex sm:justify-around">
-{%- for feature in features -%}
-  <div class="sm:w-1/3 m-4 p-2">
-    <p class="font-semibold">{{ feature.title }}</p>
-    <p>{{ feature.details }}</p>
-    {# <time datetime="{{ page.date }}">{{ page.date | dateDisplay("LLLL d, y") }}</time> #}
+      <button class="p-3 border-4 rounded border-green-200">Buy Now!</button>
+    </form>
   </div>
-{%- endfor -%}
-</div>
+{% endfor %}
+</section>
 
 <p>Also includes support for Netlify Functions, because they are awesome for getting work done.</p>
 <ul>
   <li><a href="/api/hello">/api/hello</a></li>
+  <li><a href="/api/create-checkout">Checkout</a></li>
 </ul>
+
+<script type="text/javascript">
+  console.log('Are you gonna buy something?')
+
+  const buttons = document.querySelectorAll('button')
+  const clickHandler = buttons.forEach(b => {
+    b.addEventListener('click', async event => {
+      event.preventDefault()
+      const form = new FormData(event.target.form)
+      const order = {
+        sku: form.get('sku'),
+        quantity: Number(form.get('quantity'))
+      }
+      const response = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(order)
+      })
+      .then(response => response.json())
+      console.log(response)
+    })
+  })
+</script>

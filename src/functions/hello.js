@@ -1,6 +1,13 @@
 exports.handler = async (event, context) => {
-    return {
-        statusCode: 200,
-        body: "meow",
+    try {
+        return {
+            statusCode: 200,
+            body: "meow",
+        }
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: error.toString()
+        }
     }
 }
