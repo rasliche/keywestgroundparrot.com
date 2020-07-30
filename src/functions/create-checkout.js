@@ -22,7 +22,7 @@ exports.handler = async ({ body }) => {
                             images: [product.image],
                         }
                     },
-                quantity: validatedQuantity,
+                    quantity: validatedQuantity,
                 },
                 {
                     price_data: {
@@ -34,7 +34,7 @@ exports.handler = async ({ body }) => {
                             images: [],
                         }
                     },
-                quantity: 1,
+                    quantity: 1,
                 },
             ],
             shipping_address_collection: {
