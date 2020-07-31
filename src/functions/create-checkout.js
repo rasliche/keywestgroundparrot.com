@@ -6,8 +6,6 @@ exports.handler = async ({ body }) => {
         const { sku, quantity } = JSON.parse(body)
         const product = inventory.find(p => p.sku === sku)
         const validatedQuantity = quantity > 0 && quantity <= 5 ? quantity : 1
-
-        console.log(product)
         
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -44,7 +42,6 @@ exports.handler = async ({ body }) => {
             success_url: 'https://keywestgroundparrot.com/purchased',
             cancel_url: 'https://keywestgroundparrot.com/',
         })
-    
         return {
             statusCode: 200,
             body: JSON.stringify(session.id)
