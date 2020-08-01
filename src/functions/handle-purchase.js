@@ -20,7 +20,7 @@ exports.handler = async ({ headers, body }) => {
             }
         }
 
-        const items = await stripe.checkout.sessions.lineItems(body.data.object.id);
+        const items = await stripe.checkout.sessions.listLineItems(body.data.object.id);
 
         const order = event.data.object
         
@@ -62,7 +62,7 @@ ${country}
     } catch (error) {
         return {
             statusCode: 400,
-            body: ` Is it hitting this error? Webhook Error: ${error.message}`
+            body: `Webhook Error: ${error.message}`
         }
     }
 }
