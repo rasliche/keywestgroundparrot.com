@@ -21,7 +21,7 @@ exports.handler = async ({ headers, body }) => {
         }
 
         const { line_items: { data: items } } = await stripe.checkout.sessions.retrieve(
-            'fifteen',
+            body,
             {
               expand: ['line_items'],
             }
