@@ -20,12 +20,7 @@ exports.handler = async ({ headers, body }) => {
             }
         }
 
-        const { line_items: { data: items } } = await stripe.checkout.sessions.retrieve(
-            body,
-            {
-              expand: ['line_items'],
-            }
-        );
+        const items = await stripe.checkout.sessions.lineItems(body.data.object.id);
 
         const order = event.data.object
         
