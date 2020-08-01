@@ -20,7 +20,7 @@ exports.handler = async ({ headers, body }) => {
             }
         }
 
-        const {line_items: items } = await stripe.checkout.sessions.retrieve(
+        const { line_items: { data: items } } = await stripe.checkout.sessions.retrieve(
             body.id,
             {
               expand: ['line_items'],
@@ -49,7 +49,7 @@ exports.handler = async ({ headers, body }) => {
             subject: 'New Order from KeyWestGroundParrot.com!',
             text: `
 Items:
-${items.map(item => `- (${item.quantity}) ${item.custom.name}`).join('\n')}
+${items.map(item => `- (${item.quantity}) ${item.id}`).join('\n')}
         
 Shipping Address:
 ${order.shipping.name}
