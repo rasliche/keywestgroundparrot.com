@@ -20,7 +20,7 @@ exports.handler = async ({ headers, body }) => {
             }
         }
 
-        const items = await stripe.checkout.sessions.listLineItems(body.data.object.id);
+        // const items = await stripe.checkout.sessions.listLineItems(body.data.object.id);
 
         const order = event.data.object
         
@@ -36,6 +36,7 @@ exports.handler = async ({ headers, body }) => {
 
         // read out the line items and format email
 
+        // ${items.map(item => `- (${item.quantity}) ${item.id}`).join('\n')}
         
         const msg = {
             to: process.env.FULFILLMENT_EMAIL_ADDRESS,
@@ -43,7 +44,6 @@ exports.handler = async ({ headers, body }) => {
             subject: 'New Order from KeyWestGroundParrot.com!',
             text: `
 Items:
-${items.map(item => `- (${item.quantity}) ${item.id}`).join('\n')}
         
 Shipping Address:
 ${order.shipping.name}
