@@ -21,12 +21,11 @@ exports.handler = async ({ headers, body }) => {
         }
 
         const { line_items: { data: items } } = await stripe.checkout.sessions.retrieve(
-            body,
+            body.id,
             {
               expand: ['line_items'],
             }
         );
-        console.log(items)    
 
         const order = event.data.object
         
