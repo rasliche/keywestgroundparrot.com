@@ -1,37 +1,69 @@
 const stripe = require('stripe')(process.env.STRIPE_API_SECRET);
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
 const mail = require('@sendgrid/mail');
 
 mail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Netlify sends the event object which is deconstructed below to the headers and body
 exports.handler = async ({ headers, body }) => {
-    // TODO verify webhook signature
-    const signature = headers['stripe-signature']
+    // verify webhook signature
     let event
     try {
-        event = stripe.webhooks.constructEvent(body, signature, endpointSecret)
-        if (event.type === 'checkout.session.completed') {
-            const session = event.data.object
-            console.log(session)
-    
-            const msg = {
-            to: 'rasliche@gmail.com',
-            from: 'rasliche@gmail.com',
-            subject: 'New Order from KeyWestGroundParrot.com!',
-            text: 'and easy to do anywhere, even with Node.js',
-            html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-            };
-            mail.send(msg);
+        event = stripe.webhooks.constructEvent(
+            body, 
+            headers['stripe-signature'], 
+            process.env.STRIPE_WEBHOOK_SECRET)
+
+        if (event.type !== 'checkout.session.completed') {
+            return {
+                statusCode: 400,
+                body: `Webhook Error: ${error.message}`
+            }
         }
-        // TODO read out the shipping address
-        // TODO read out the line items
-    
-        // TODO send email
-    
+
+        const {line_items: items } = await stripe.checkout.sessions.retrieve(
+            body.id,
+            {
+              expand: ['line_items'],
+            }
+        );
+        console.log(items)    
+
+        const order = event.data.object
+        
+        // read out the shipping address
+        const {
+            line1,
+            line2,
+            city,
+            state,
+            postal_code,
+            country
+        } = order.shipping.address
+
+        // read out the line items and format email
+
+
+        const msg = {
+            to: process.env.FULFILLMENT_EMAIL_ADDRESS,
+            from: process.env.FULFILLMENT_EMAIL_ADDRESS,
+            subject: 'New Order from KeyWestGroundParrot.com!',
+            text: `
+Items:
+${items.map(item => `- (${item.quantity}) ${item.custom.name}`).join('\n')}
+        
+Shipping Address:
+${order.shipping.name}
+${line1}${line2 !== null ? '\n' + line2 : ''}
+${city}, ${state} ${postal_code}
+${country}
+`,
+        };
+        // send email
+        await mail.send(msg);
+        
         return {
             statusCode: 200,
-            body: 'todo'
+            body: JSON.stringify({ received: true })
         }
     } catch (error) {
         return {
@@ -39,5 +71,4 @@ exports.handler = async ({ headers, body }) => {
             body: `Webhook Error: ${error.message}`
         }
     }
-
 }

@@ -42,6 +42,7 @@ exports.handler = async ({ body }) => {
             success_url: 'https://keywestgroundparrot.com/purchased',
             cancel_url: 'https://keywestgroundparrot.com/',
         })
+
         return {
             statusCode: 200,
             body: JSON.stringify(session.id)
