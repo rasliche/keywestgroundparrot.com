@@ -20,12 +20,12 @@ exports.handler = async ({ headers, body }) => {
             }
         }
 
-        const { line_items: { data: items } } = await stripe.checkout.sessions.retrieve(
-            body,
-            {
-              expand: ['line_items'],
-            }
-        );
+        // const { line_items: { data: items } } = await stripe.checkout.sessions.retrieve(
+        //     body,
+        //     {
+        //       expand: ['line_items'],
+        //     }
+        // );
 
         const order = event.data.object
         
@@ -41,6 +41,7 @@ exports.handler = async ({ headers, body }) => {
 
         // read out the line items and format email
 
+        // ${items.map(item => `- (${item.quantity}) ${item.id}`).join('\n')}
 
         const msg = {
             to: process.env.FULFILLMENT_EMAIL_ADDRESS,
@@ -48,7 +49,6 @@ exports.handler = async ({ headers, body }) => {
             subject: 'New Order from KeyWestGroundParrot.com!',
             text: `
 Items:
-${items.map(item => `- (${item.quantity}) ${item.id}`).join('\n')}
         
 Shipping Address:
 ${order.shipping.name}
