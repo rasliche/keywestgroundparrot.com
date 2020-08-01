@@ -21,7 +21,7 @@ exports.handler = async ({ headers, body }) => {
         }
 
         const { line_items: { data: items } } = await stripe.checkout.sessions.retrieve(
-            body.id,
+            'fifteen',
             {
               expand: ['line_items'],
             }
@@ -67,7 +67,7 @@ ${country}
     } catch (error) {
         return {
             statusCode: 400,
-            body: `Webhook Error: ${error.message}`
+            body: ` Is it hitting this error? Webhook Error: ${error.message}`
         }
     }
 }
