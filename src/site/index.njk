@@ -8,10 +8,12 @@ layout: layouts/base.njk
   <div>
     <h2 class="text-lg font-semibold">{{ product.name }}</h2>
     <p>{{ product.description }}</p>
-    <img src="{{ product.image }}" alt="{{ product.name }}" />
+    {% for image in product.images %}
+      <img src="{{ image }}" alt="{{ product.name }} {{ loop.index }}" />
+    {% endfor %}
     <p>{{ product.amount | priceFormatter(product.currency) }}</p>
     <form action="/api/create-checkout" method="POST">
-      <label for="quantity">How many?
+      <label for="quantity">Quantity:
       <input type="number" min="1" max="5" id="quantity" name="quantity" value="1">
       <input type="hidden" name="sku" value="{{ product.sku }}">
 
