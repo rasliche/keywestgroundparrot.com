@@ -1,25 +1,25 @@
 ---
 layout: layouts/base.njk
 ---
-<h1 class="w-full text-center text-3xl border-b-2">The Uncommon Locals</h1>
+<h1 class="w-full text-center text-3xl border-b-4 border-red-600 border-dashed bg-blue-200">Uncommon Locals</h1>
 
 <section>
 {% for product in products %}
-  <div>
-    <h2 class="text-lg font-semibold">{{ product.name }}</h2>
-    <p class="text-sm">{{ product.description }}</p>
+  <div class="bg-yellow-100">
+    <h2 class="w-2/3 mx-4 text-lg font-semibold text-yellow-900">{{ product.name }}</h2>
+    <p class="w-2/3 mx-4 text-yellow-900">{{ product.amount | priceFormatter(product.currency) }}</p>
+    <p class="w-2/3 mx-4 text-sm my-4 text-yellow-800">{{ product.description }}</p>
     <div class="flex overflow-x-scroll">
       {% for image in product.images %}
         <img src="{{ image }}" alt="{{ product.name }} {{ loop.index }}" />
       {% endfor %}
     </div>
-    <p>{{ product.amount | priceFormatter(product.currency) }}</p>
-    <form action="/api/create-checkout" method="POST">
-      <label for="quantity">Quantity:
-      <input type="number" min="1" max="5" id="quantity" name="quantity" value="1">
+    <form action="/api/create-checkout" method="POST" class="text-yellow-900">
+      <label for="quantity" class="text-sm">Quantity:
+      <input type="number" min="1" max="5" id="quantity" name="quantity" value="1" class="text-lg">
       <input type="hidden" name="sku" value="{{ product.sku }}">
 
-      <button class="p-3 border-4 rounded border-green-200">Buy Now!</button>
+      <button class="p-3 bg-green-200 hover:bg-green-300 text-green-900 rounded-lg">Buy Now!</button>
     </form>
   </div>
 {% endfor %}
