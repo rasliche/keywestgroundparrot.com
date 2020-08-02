@@ -1,16 +1,18 @@
 ---
 layout: layouts/base.njk
 ---
-<h1 class="text-3xl border-b-2">The Uncommon Locals</h1>
+<h1 class="w-full text-center text-3xl border-b-2">The Uncommon Locals</h1>
 
 <section>
 {% for product in products %}
   <div>
     <h2 class="text-lg font-semibold">{{ product.name }}</h2>
-    <p>{{ product.description }}</p>
-    {% for image in product.images %}
-      <img src="{{ image }}" alt="{{ product.name }} {{ loop.index }}" />
-    {% endfor %}
+    <p class="text-sm">{{ product.description }}</p>
+    <div class="flex overflow-x-scroll">
+      {% for image in product.images %}
+        <img src="{{ image }}" alt="{{ product.name }} {{ loop.index }}" />
+      {% endfor %}
+    </div>
     <p>{{ product.amount | priceFormatter(product.currency) }}</p>
     <form action="/api/create-checkout" method="POST">
       <label for="quantity">Quantity:
