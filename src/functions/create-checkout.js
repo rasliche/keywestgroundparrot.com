@@ -17,7 +17,7 @@ exports.handler = async ({ body }) => {
                         product_data: {
                             name: product.name,
                             description: product.description,
-                            images: [product.image],
+                            images: product.images,
                         }
                     },
                     quantity: validatedQuantity,
