@@ -1,11 +1,11 @@
 ---
 layout: layouts/base.njk
 ---
-<h1 class="w-full text-center text-3xl border-b-4 border-red-600 border-dashed bg-blue-200">Uncommon Locals</h1>
+<h1 class="w-full text-center text-3xl border-b-4 border-red-600 border-dashed bg-blue-200 font-title">Key West Ground Parrot</h1>
 
-<section>
+<section class="my-4">
 {% for product in products %}
-  <div class="bg-yellow-100">
+  <div class="bg-yellow-100 py-4">
     <h2 class="w-2/3 mx-4 text-lg font-semibold text-yellow-900">{{ product.name }}</h2>
     <p class="w-2/3 mx-4 text-yellow-900">{{ product.amount | priceFormatter(product.currency) }}</p>
     <p class="w-2/3 mx-4 text-sm my-4 text-yellow-800">{{ product.description }}</p>
@@ -14,12 +14,14 @@ layout: layouts/base.njk
         <img src="{{ image }}" alt="{{ product.name }} {{ loop.index }}" />
       {% endfor %}
     </div>
-    <form action="/api/create-checkout" method="POST" class="text-yellow-900">
-      <label for="quantity" class="text-sm">Quantity:
-      <input type="number" min="1" max="5" id="quantity" name="quantity" value="1" class="text-lg">
+    <form action="/api/create-checkout" method="POST" class="flex justify-between w-full py-6 text-yellow-900">
+      <div class="ml-8">
+        <label for="quantity" class="text-sm">Quantity:
+        <input type="number" min="1" max="5" id="quantity" name="quantity" value="1" class="text-xl">
+      </div>
       <input type="hidden" name="sku" value="{{ product.sku }}">
 
-      <button class="p-3 bg-green-200 hover:bg-green-300 text-green-900 rounded-lg">Buy Now!</button>
+      <button class="mr-8 px-6 py-2 bg-green-200 hover:bg-green-300 text-green-900 rounded-lg">Send it!</button>
     </form>
   </div>
 {% endfor %}

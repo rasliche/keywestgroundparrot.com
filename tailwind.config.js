@@ -1,6 +1,9 @@
 module.exports = {
   theme: {
-    extend: {}
+    fontFamily: {
+      'body': 'Montserrat',
+      'title': 'Caveat'
+    },
   },
   variants: {},
   plugins: []
