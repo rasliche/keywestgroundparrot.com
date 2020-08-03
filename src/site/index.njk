@@ -17,7 +17,7 @@ layout: layouts/base.njk
     <form action="/api/create-checkout" method="POST" class="flex justify-between w-full py-6 text-yellow-900">
       <div class="ml-8">
         <label for="quantity" class="text-sm">Quantity:</label>
-        <input type="number" min="1" max="5" id="quantity" name="quantity" value="1" class="text-xl">
+        <input type="number" min="1" max="5" id="quantity" name="quantity" value="1" class="text-xl p-2 shadow-inner border border-gray-600 rounded-lg">
       </div>
       <input type="hidden" name="sku" value="{{ product.sku }}">
 
