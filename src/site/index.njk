@@ -4,6 +4,10 @@ pageTitle: Key West Critter Stickers
 ---
 <h1 class="w-full text-center text-3xl border-b-4 border-red-600 border-dashed bg-blue-200 font-title">Key West Ground Parrot</h1>
 
+<div id="" class="mx-auto my-4 max-w-md border-4 border-dashed border-purple-500 rounded px-10 py-8">
+  Hey! If you want some newer swag and to get some exercise this Thanksgiving, sign up for the <a href="https://5k.keywestgroundparrot.com" class="border-b-2 border-green-500">Key West Ground Parrot 5k</a>
+</div>
+
 <article class="my-4">
 {% for product in products %}
   <div class="bg-yellow-100 py-4">
@@ -22,7 +26,9 @@ pageTitle: Key West Critter Stickers
       </div>
       <input type="hidden" name="sku" value="{{ product.sku }}">
 
-      <button class="mr-8 w-48 h-12 bg-green-200 hover:bg-green-300 text-green-900 rounded-lg">Send it!</button>
+      <button class="mr-8 w-48 h-12 transition-colors ease-in-out duration-500 bg-green-200 hover:bg-green-300 text-green-900 rounded-lg">
+        Send it!
+      </button>
     </form>
   </div>
 {% endfor %}
