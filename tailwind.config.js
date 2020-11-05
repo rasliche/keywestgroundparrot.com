@@ -1,7 +1,9 @@
 module.exports = {
+  future: {},
+  purge: [],
   theme: {
     fontFamily: {
-      'body': 'Montserrat',
+      body: ['Montserrat'],
       'title': 'Caveat'
     },
   },
