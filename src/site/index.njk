@@ -5,7 +5,7 @@ pageTitle: Key West Critter Stickers
 <h1 class="w-full text-center text-3xl border-b-4 border-red-600 border-dashed bg-blue-200 font-title">Key West Ground Parrot</h1>
 
 <div id="" class="mx-auto my-4 max-w-md border-4 border-dashed border-purple-500 rounded px-10 py-8">
-  Hey! If you want some newer swag and to get some exercise this Thanksgiving, sign up for the <a href="https://5k.keywestgroundparrot.com" class="border-b-2 border-green-500">Key West Ground Parrot 5k</a>
+  Hey! If you want some newer swag and to get some exercise this Thanksgiving, sign up for the <a href="https://5k.keywestgroundparrot.com" class="border-b-2 border-green-500">Key West Ground Parrot 5k</a>. For now, everything on this site is out of stock! Thank you for your support!
 </div>
 
 <article class="my-4">
@@ -19,7 +19,7 @@ pageTitle: Key West Critter Stickers
         <img class="w-2/3" src="{{ image }}" alt="{{ product.name }} {{ loop.index }}" />
       {% endfor %}
     </div>
-    <form action="/api/create-checkout" method="POST" class="flex justify-between w-full py-6 text-yellow-900">
+    {# <form action="/api/create-checkout" method="POST" class="flex justify-between w-full py-6 text-yellow-900">
       <div class="ml-8">
         <label for="quantity" class="text-sm">Quantity:</label>
         <input type="number" min="1" max="5" id="quantity" name="quantity" value="1" class="text-xl p-2 shadow-inner border border-gray-600 rounded-lg">
@@ -29,7 +29,7 @@ pageTitle: Key West Critter Stickers
       <button class="mr-8 w-48 h-12 transition-colors ease-in-out duration-500 bg-green-200 hover:bg-green-300 text-green-900 rounded-lg">
         Send it!
       </button>
-    </form>
+    </form> #}
   </div>
 {% endfor %}
 </article>
