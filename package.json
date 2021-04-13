@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^7.3.0",
-    "gitlog": "^4.0.3",
+    "gitlog": "^4.0.4",
     "stripe": "^8.120.0"
   }
 }
